@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Travel Planner – Multimodal Journey Planner</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">AI Travel Planner</a>
+      <nav class="nav">
+        <a href="#" data-page="plan" class="nav-link">Plan Trip</a>
+        <a href="#" data-page="history" class="nav-link">My Trips</a>
+        <a href="#" data-page="preferences" class="nav-link">Preferences</a>
+        <span class="user-badge" id="userBadge"></span>
+        <button type="button" class="btn btn-ghost" id="btnLogout" hidden>Log out</button>
+        <a href="#" data-page="login" class="nav-link" id="navLogin">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Landing / Auth -->
+    <section id="page-landing" class="page active">
+      <div class="hero">
+        <h1>Plan Smarter Trips</h1>
+        <p>Multimodal routes, AI recommendations, and local events — all in one place.</p>
+        <div class="auth-tabs">
+          <button type="button" class="tab active" data-tab="login">Log in</button>
+          <button type="button" class="tab" data-tab="register">Register</button>
+        </div>
+        <div id="authLogin" class="auth-form">
+          <form id="formLogin">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary">Log in</button>
+          </form>
+          <p class="auth-error" id="loginError"></p>
+        </div>
+        <div id="authRegister" class="auth-form hidden">
+          <form id="formRegister">
+            <input type="text" name="name" placeholder="Name (optional)">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+          <p class="auth-error" id="registerError"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan Trip -->
+    <section id="page-plan" class="page">
+      <div class="container">
+        <h2>Plan Your Trip</h2>
+        <form id="formPlan" class="plan-form card">
+          <div class="form-row">
+            <label>From</label>
+            <input type="text" id="planSource" name="source" placeholder="City or place" required>
+          </div>
+          <div class="form-row">
+            <label>To</label>
+            <input type="text" id="planDestination" name="destination" placeholder="City or place" required>
+          </div>
+          <div class="form-row two-cols">
+            <div>
+              <label>Start date</label>
+              <input type="date" id="planStartDate" name="start_date">
+            </div>
+            <div>
+              <label>End date</label>
+              <input type="date" id="planEndDate" name="end_date">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Get routes & recommendations</button>
+        </form>
+        <div id="planResults" class="results-section hidden">
+          <h3>Recommended options</h3>
+          <div id="optionsList" class="options-list"></div>
+          <div class="map-section">
+            <h3>Route map</h3>
+            <div id="map" class="map-container"></div>
+          </div>
+          <div id="destinationEvents" class="events-section">
+            <h3>Events at destination</h3>
+            <div id="eventsList" class="events-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Travel History -->
+    <section id="page-history" class="page">
+      <div class="container">
+        <h2>My travel history</h2>
+        <div id="historyList" class="history-list"></div>
+        <p id="historyEmpty" class="empty-msg hidden">No trips saved yet. Plan a trip and save an itinerary.</p>
+      </div>
+    </section>
+
+    <!-- Preferences -->
+    <section id="page-preferences" class="page">
+      <div class="container">
+        <h2>My preferences</h2>
+        <form id="formPreferences" class="preferences-form card">
+          <div class="form-row">
+            <label>Preferred transport modes</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="mode" value="flight"> Flight</label>
+              <label><input type="checkbox" name="mode" value="train"> Train</label>
+              <label><input type="checkbox" name="mode" value="bus"> Bus</label>
+              <label><input type="checkbox" name="mode" value="car"> Car</label>
+            </div>
+          </div>
+          <div class="form-row two-cols">
+            <div>
+              <label>Budget min ($)</label>
+              <input type="number" name="budget_min" id="prefBudgetMin" min="0" step="10" placeholder="0">
+            </div>
+            <div>
+              <label>Budget max ($)</label>
+              <input type="number" name="budget_max" id="prefBudgetMax" min="0" step="10" placeholder="500">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save preferences</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">AI-Assisted Multimodal Travel Planner &copy; 2025</div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
